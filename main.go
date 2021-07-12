@@ -54,7 +54,7 @@ func main() {
 }
 
 func verifyUrlFormat(url string) {
-	matched, _ := regexp.MatchString("^https?://bonetome\\.com/h3vr/mods/\\d+", url)
+	matched, _ := regexp.MatchString("^https?://bonetome\\.com/.+\\d+/?$", url)
 	if !matched {
 		log.Fatal("URL is not in the specified format")
 	}
