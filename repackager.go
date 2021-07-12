@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -12,14 +11,14 @@ import (
 )
 
 type Repackager struct {
-	BuildDir string
-	ContainsLvoFiles bool
-	ContainsDeliFiles bool
+	BuildDir                string
+	ContainsLvoFiles        bool
+	ContainsDeliFiles       bool
 	ContainsSideloaderFiles bool
 }
 
 func (rpkg *Repackager) Do(ps *PullService) {
-	baseDir := ps.BoneTomeMetadata.Asset.Name+"._build"
+	baseDir := ps.BoneTomeMetadata.Asset.Name + "._build"
 
 	_, lstatErr := os.Lstat(baseDir)
 	if !(os.IsNotExist(lstatErr)) {
@@ -50,14 +49,13 @@ func (rpkg *Repackager) moveFiles(files []string) {
 	fileNameRegexp := regexp.MustCompilePOSIX("[^/\\\\]+$")
 
 	lvoPath := path.Join("plugins", "LegacyVirtualObjects")
-	deliPath := path.Join("plugins", "Deli")
+	deliPath := path.Join("plugins", "DeliMods")
 	fileLocations := map[string][]string{
 		"Sideloader": {},
-		"plugins": {},
-		lvoPath: {},
-		deliPath: {},
+		"plugins":    {},
+		lvoPath:      {},
+		deliPath:     {},
 	}
-	fmt.Println()
 	for fileIndex := range files {
 		fileLower := strings.ToLower(files[fileIndex])
 		if strings.HasSuffix(fileLower, ".hotmod") || strings.HasSuffix(fileLower, ".h3mod") {
@@ -117,7 +115,6 @@ func (rpkg *Repackager) moveFiles(files []string) {
 		}
 	}
 }
-
 
 // https://stackoverflow.com/a/49196644
 func (rpkg *Repackager) getFiles(dir string) []string {

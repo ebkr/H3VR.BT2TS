@@ -35,12 +35,16 @@ func main() {
 	webUrlLine, _, _ := webUrlReader.ReadLine()
 	webUrl := string(webUrlLine)
 
+	fmt.Println()
+	fmt.Println(fmt.Sprintf("Downloading %s from BoneTome", btmd.Asset.Name))
 	pullService := &PullService{}
 	pullService.Do(btmd)
 
+	fmt.Println("Repacking files")
 	repackager := &Repackager{}
 	repackager.Do(pullService)
 
+	fmt.Println("Writing Thunderstore metadata files")
 	tsm := btmd.CreateThunderstoreManifestObject(webUrl, repackager)
 	tsm.WriteMetadataToFolder(repackager.BuildDir, btmd)
 
