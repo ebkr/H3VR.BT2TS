@@ -13,7 +13,8 @@ This project will restructure any BoneTome mod to the best of it's ability to fa
 ## How do I use it?
 ### To download
 Either:
-- Download the latest EXE directly from: https://github.com/ebkr/H3VR.BT2TS/releases
+- Download the latest EXE from: https://github.com/ebkr/H3VR.BT2TS/releases
+- Download the latest zip from: https://h3vr.thunderstore.io/package/ebkr/BT2TS/
 - Or, build it from source. The executables were built using Go 1.15.7.
 
 ### To run
