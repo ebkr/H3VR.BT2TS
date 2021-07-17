@@ -30,7 +30,7 @@ type BoneTomeMetadata struct {
 
 type ThunderstoreManifest struct {
 	Name         string   `json:"name"`
-	Version      string   `json:"version"`
+	Version      string   `json:"version_number"`
 	Description  string   `json:"description"`
 	WebsiteUrl   string   `json:"website_url"`
 	Dependencies []string `json:"dependencies"`
@@ -83,14 +83,14 @@ func (btmd *BoneTomeMetadata) PopulateFromUrl(url string) {
 }
 
 /** Not a perfect generation. Doesn't capture headings.
-	BT page HTML isn't the best and has loose inner text coupled with potential elements.
-	Similar to:
-		<div>
-			text
-			<span>more text</span>
-			even more text
-		</div>
- */
+BT page HTML isn't the best and has loose inner text coupled with potential elements.
+Similar to:
+	<div>
+		text
+		<span>more text</span>
+		even more text
+	</div>
+*/
 func (btmd *BoneTomeMetadata) buildReadme(doc *goquery.Document) {
 	btmd.Readme = "# " + btmd.RealName + "\n\n"
 	btmd.Readme = btmd.Readme + doc.Find("#mod-info-desc").Eq(0).Text()
