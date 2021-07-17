@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"regexp"
+	"strings"
 )
 
 func main() {
@@ -43,6 +44,12 @@ func main() {
 	fmt.Println("Repacking files")
 	repackager := &Repackager{}
 	repackager.Do(pullService)
+
+	if repackager.ContainsDeliFiles && !repackager.ContainsLvoFiles {
+		repackager.ContainsLvoFiles = askBooleanQuestion("Do you require OtherLoader?")
+	}
+
+	repackager.RequiresH3VRUtilities = askBooleanQuestion("Do you require H3VRUtilities?")
 
 	fmt.Println("Writing Thunderstore metadata files")
 	tsm := btmd.CreateThunderstoreManifestObject(webUrl, repackager)
@@ -85,6 +92,23 @@ func inputValidNumber() int {
 	default:
 		fmt.Println("The number inputted was invalid. Please select a correct number.")
 		return inputValidNumber()
+	}
+}
+
+func askBooleanQuestion(question string) bool {
+	fmt.Println()
+	fmt.Print(fmt.Sprintf("%s (y/n): ", question))
+
+	numReader := bufio.NewReader(os.Stdin)
+	numLine, _ := numReader.ReadByte()
+	switch strings.ToLower(string(numLine)) {
+	case "y":
+		return true
+	case "n":
+		return false
+	default:
+		fmt.Println("The input was invalid. Please try again.")
+		return askBooleanQuestion(question)
 	}
 }
 

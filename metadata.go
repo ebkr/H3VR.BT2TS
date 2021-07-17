@@ -138,6 +138,13 @@ func (btmd *BoneTomeMetadata) CreateThunderstoreManifestObject(websiteUrl string
 		}
 		tsm.Dependencies = append(tsm.Dependencies, dep)
 	}
+	if rpkg.RequiresH3VRUtilities {
+		dep, err := tsapi.GetDependencyStringFor("WFIOST-H3VRUtilities")
+		if err != nil {
+			log.Fatal(err)
+		}
+		tsm.Dependencies = append(tsm.Dependencies, dep)
+	}
 
 	return &tsm
 }

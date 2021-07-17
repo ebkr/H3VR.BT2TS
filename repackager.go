@@ -17,6 +17,7 @@ type Repackager struct {
 	ContainsLvoFiles        bool
 	ContainsDeliFiles       bool
 	ContainsSideloaderFiles bool
+	RequiresH3VRUtilities   bool
 }
 
 func (rpkg *Repackager) Do(ps *PullService) {
