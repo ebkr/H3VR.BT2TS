@@ -1,6 +1,8 @@
 package main
 
 import (
+	"context"
+	"github.com/saracen/fastzip"
 	"io"
 	"log"
 	"os"
@@ -129,4 +131,29 @@ func (rpkg *Repackager) getFiles(dir string) []string {
 		log.Fatal(err)
 	}
 	return files
+}
+
+func (rpkg *Repackager) ZipBuildContents(outFile string) {
+	w, err := os.Create(outFile)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer w.Close()
+
+	a, err := fastzip.NewArchiver(w, rpkg.BuildDir)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer a.Close()
+
+	files := make(map[string]os.FileInfo)
+	err = filepath.Walk(rpkg.BuildDir, func(pathname string, info os.FileInfo, err error) error {
+		files[pathname] = info
+		return nil
+	})
+
+	// Archive
+	if err = a.Archive(context.Background(), files); err != nil {
+		log.Fatal(err)
+	}
 }

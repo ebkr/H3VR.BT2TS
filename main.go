@@ -48,13 +48,44 @@ func main() {
 	tsm := btmd.CreateThunderstoreManifestObject(webUrl, repackager)
 	tsm.WriteMetadataToFolder(repackager.BuildDir, btmd)
 
+	correspondingNumber := inputValidNumber()
+
 	fmt.Println()
-	fmt.Println(fmt.Sprintf("Place an icon.png (256x256) in the %s folder", repackager.BuildDir))
-	fmt.Println("Once you have done this, select all files in that folder and zip them")
-	fmt.Println("(On Windows: Select all -> Right click -> Send to -> Compressed (zipped) folder")
+
+	switch correspondingNumber {
+	case 1:
+		fmt.Println(fmt.Sprintf("Place an icon.png (256x256) in the %s folder", repackager.BuildDir))
+		fmt.Println("Once you have done this, select all files in that folder and zip them")
+		fmt.Println("(On Windows: Select all -> Right click -> Send to -> Compressed (zipped) folder")
+		fmt.Println()
+		fmt.Println("When zipped, you can upload to Thunderstore.")
+	case 2:
+		zipName := fmt.Sprintf("%s-%s.zip", btmd.PackageName, btmd.Version)
+		repackager.ZipBuildContents(zipName)
+		fmt.Println(fmt.Sprintf("The zip file [%s] can be imported into a supported Thunderstore mod manager", zipName))
+	}
+
 	fmt.Println()
-	fmt.Println("When zipped, you can upload to Thunderstore.")
+}
+
+func inputValidNumber() int {
 	fmt.Println()
+	fmt.Println("Enter the corresponding number:")
+	fmt.Println("(1). I'm going to upload my mod to Thunderstore.")
+	fmt.Println("(2). I want to import a mod using a mod manager.")
+	fmt.Print("Enter number: ")
+
+	numReader := bufio.NewReader(os.Stdin)
+	numLine, _ := numReader.ReadByte()
+	switch string(numLine) {
+	case "1":
+		return 1
+	case "2":
+		return 2
+	default:
+		fmt.Println("The number inputted was invalid. Please select a correct number.")
+		return inputValidNumber()
+	}
 }
 
 func verifyUrlFormat(url string) {
