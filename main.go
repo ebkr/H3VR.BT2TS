@@ -51,6 +51,7 @@ func main() {
 
 	repackager.RequiresH3VRUtilities = askBooleanQuestion("Do you require H3VRUtilities?")
 
+	fmt.Println()
 	fmt.Println("Writing Thunderstore metadata files")
 	tsm := btmd.CreateThunderstoreManifestObject(webUrl, repackager)
 	tsm.WriteMetadataToFolder(repackager.BuildDir, btmd)
