@@ -23,6 +23,7 @@ Either:
 4. Enter a description (up to 250 characters).
 5. Enter a website URL (Can be blank, a GitHub URL, the BT mod page, or something else).
 6. Wait for the files to generate.
+7. Select an option to either leave as-is, or zip for mod manager importing.
 
 ## How do I upload to Thunderstore?
 The restructured folder will be generated in the same directory as the executable.
