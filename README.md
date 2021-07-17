@@ -26,6 +26,8 @@ Either:
 6. Wait for the files to generate.
 7. Select an option to either leave as-is, or zip for mod manager importing.
 
+**Note:** If the package is a 7z file, you'll need 7z in your path environment variables.
+
 ## How do I upload to Thunderstore?
 The restructured folder will be generated in the same directory as the executable.
 
@@ -36,3 +38,6 @@ You will need to supply an `icon.png` with a resolution of 256px by 256px.
 3. Login to Thunderstore.
 4. Upload the zip.
 
+## Changelog
+### 1.1.2
+- Added conditional dependency linking for OtherLoader and H3VRUtilities
